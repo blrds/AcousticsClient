@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AcousticsClient"
+        xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
-        Title="Client" Height="450" Width="800"
+        Title="{Binding SelectedExperiment.Room.Proportions.X}" Height="450" Width="800"
         xmlns:vm="clr-namespace:AcousticsClient.ViewModels">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -14,14 +15,69 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="Файл">
+            <MenuItem Header="Файл" Command="{Binding Click}">
                 
             </MenuItem>
             <MenuItem Header="Справка"/>
             <MenuItem Header="О программе"/>
-
         </Menu>
+        <TabControl Grid.Row="1" ItemsSource="{Binding Experiments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedExperiment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate >
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Style="{x:Null}" HorizontalAlignment="Left">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlock1}"/>
+
+                                <Style TargetType="TextBox" BasedOn="{StaticResource TextBox1}">
+                                    <Setter Property="Width" Value="20"/>
+                                </Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Orientation" Value="Horizontal"/>
+                                    <Setter Property="Width" Value="200"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <StackPanel HorizontalAlignment="Left">
+                                <TextBlock Text="Комната: "/>
+                                <TextBox Text="{Binding Room.Name}" Width="100"/>
+                                <Button Background="Transparent" BorderThickness="0" Command="{Binding SearchRoom}">
+                                    <fa:ImageAwesome Icon="Solid_MagnifyingGlass" Height="15" Width="20"/>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Длина комнаты: "/>
+                                <TextBox Text="{Binding Room.Proportions.X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Ширина комнаты: "/>
+                                <TextBox Text="{Binding Room.Proportions.Y}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Высота комнаты: "/>
+                                <TextBox Text="{Binding Room.Proportions.Z}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+        <ProgressBar Grid.Row="2" Height="15"/>
     </Grid>
 </Window>
