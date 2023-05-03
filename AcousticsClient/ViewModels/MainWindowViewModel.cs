@@ -1,6 +1,7 @@
 ﻿using AcousticsClient.Infrastructure;
 using AcousticsClient.Infrastructure.Commands;
 using AcousticsClient.Models;
+using AcousticsClient.Models.Base;
 using AcousticsClient.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace AcousticsClient.ViewModels
         public int SelectedIndex { get; set; }
 
 
+
         public MainWindowViewModel()
         {
             Experiments.Add(new Experiment("1"));
@@ -28,6 +30,8 @@ namespace AcousticsClient.ViewModels
             Experiments.Add(new Experiment("3"));
             Click=new LambdaCommand(OnClickExecuted,CanClickExecute);
             Experiments.CollectionItemChanged += Experiment_Changed;
+            Experiments[0].Sources.Add(new Models.Base.Vector3(0, 0, 0));
+            Experiments[0].Sources.Add(new Models.Base.Vector3(1, 1, 1));
         }
         public ICommand Click { get; }
         private bool CanClickExecute(object p) => true;

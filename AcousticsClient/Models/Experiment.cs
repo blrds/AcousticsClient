@@ -20,15 +20,16 @@ namespace AcousticsClient.Models
 
         public Room Room { get; set; } = new Room();
         /// <summary>
-        /// Coordinates of Source
+        /// Coordinates of Sources
         /// </summary>
-        public Vector3 Source { get; set; } = new Vector3();
-        public List<Reciever> Recievers { get; set; }=new List<Reciever>();
+        public List<Vector3> Sources { get; set; } = new List<Vector3>();
+
+        public List<Reciever> Recievers { get; set; } = new List<Reciever>();
         public Surface WallLeft { get; set; } = new Surface();
-        public Surface WallRight { get; set; }= new Surface();
+        public Surface WallRight { get; set; } = new Surface();
         public Surface WallForward { get; set; } = new Surface();
         public Surface WallBackward { get; set; } = new Surface();
-        public Surface Floor { get; set; }=new Surface();
+        public Surface Floor { get; set; } = new Surface();
         public Surface Celling { get; set; } = new Surface();
 
         public double Rev60_125 { get; set; } = 0;
@@ -39,17 +40,29 @@ namespace AcousticsClient.Models
             SearchRoom = new LambdaCommand(OnSearchRoomExecuted, CanSearchRoomExecute);
         }
         public ICommand SearchRoom { get; }
-        private bool CanSearchRoomExecute(object p) => Room.Name!="";
+        private bool CanSearchRoomExecute(object p) => Room.Name != "";
         private void OnSearchRoomExecuted(object p)
         {
             Random r = new Random();
-            Room.Proportions.X =r.NextDouble()*10;
+            Room.Proportions.X = r.NextDouble() * 10;
             OnPropertyChanged("Room.Proportions.X");
             //запрос в бд на поиск по имени комнаты.
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private Vector3 _SelectedSource;
+        public Vector3 SelectedSource
+        {
+            get { return _SelectedSource; }
+            set { _SelectedSource = value; OnPropertyChanged("SelectedSource"); }
+        }
+        private Vector3 _SelectedResiever;
+        public Vector3 SelectedResiever
+        {
+            get { return _SelectedResiever; }
+            set { _SelectedResiever = value; OnPropertyChanged("SelectedResiever"); }
         }
     }
 }

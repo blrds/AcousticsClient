@@ -34,25 +34,27 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" Name="Column0"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlock1}"/>
+
+                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBox1}">
+                                <Setter Property="Width" Value="50"/>
+                            </Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Orientation" Value="Horizontal"/>
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                            </Style>
+                        </Grid.Resources>
                         <StackPanel Style="{x:Null}" HorizontalAlignment="Left">
                             <StackPanel.Resources>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlock1}"/>
-
-                                <Style TargetType="TextBox" BasedOn="{StaticResource TextBox1}">
-                                    <Setter Property="Width" Value="20"/>
-                                </Style>
-                                <Style TargetType="StackPanel">
-                                    <Setter Property="Orientation" Value="Horizontal"/>
-                                    <Setter Property="Width" Value="200"/>
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                </Style>
+                                
                             </StackPanel.Resources>
                             <StackPanel HorizontalAlignment="Left">
                                 <TextBlock Text="Комната: "/>
@@ -63,7 +65,7 @@
                             </StackPanel>
                             <StackPanel>
                                 <TextBlock Text="Длина комнаты: "/>
-                                <TextBox Text="{Binding Room.Proportions.X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Text="{Binding Room.Proportions.X}"/>
                             </StackPanel>
                             <StackPanel>
                                 <TextBlock Text="Ширина комнаты: "/>
@@ -73,6 +75,49 @@
                                 <TextBlock Text="Высота комнаты: "/>
                                 <TextBox Text="{Binding Room.Proportions.Z}"/>
                             </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" >
+                            <DockPanel>
+                                <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}" Margin="2,5" Height="25" Padding="5,0,5,0"/>
+                                <StackPanel Style="{x:Null}" Width="Auto" DockPanel.Dock="Left">
+                                    <StackPanel>
+                                        <TextBlock Text="X: "/>
+                                        <TextBox Text="{Binding SelectedSource.X}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="Y: "/>
+                                        <TextBox Text="{Binding SelectedSource.Y}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="Z: "/>
+                                        <TextBox Text="{Binding SelectedSource.Z}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button DockPanel.Dock="Right" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5">
+                                    <fa:ImageAwesome Icon="Solid_Check"/>
+                                </Button>
+                            </DockPanel>
+                            <DockPanel>
+                                <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Recievers}" SelectedItem="{Binding SelectedReciever}" Margin="2,5" Height="25" Padding="5,0,5,0"/>
+                                <StackPanel Style="{x:Null}" Width="Auto" DockPanel.Dock="Left">
+                                    <StackPanel>
+                                        <TextBlock Text="X: "/>
+                                        <TextBox Text="{Binding SelectedResiever.X}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="Y: "/>
+                                        <TextBox Text="{Binding SelectedResiever.Y}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="Z: "/>
+                                        <TextBox Text="{Binding SelectedResiever.Z}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button DockPanel.Dock="Right" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5">
+                                    <fa:ImageAwesome Icon="Solid_Check"/>
+                                </Button>
+                            </DockPanel>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

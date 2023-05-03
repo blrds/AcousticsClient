@@ -24,5 +24,10 @@ namespace AcousticsClient.Models.Base
             Y = 0;
             Z = 0;
         }
+
+        public override string? ToString()
+        {
+            return X + " " + Y + " " + Z;
+        }
     }
 }
