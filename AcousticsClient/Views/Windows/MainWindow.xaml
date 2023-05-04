@@ -44,163 +44,205 @@
                             <Style TargetType="TextBox" BasedOn="{StaticResource TextBox1}">
                                 <Setter Property="Width" Value="50"/>
                             </Style>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Orientation" Value="Horizontal"/>
-                                <Setter Property="HorizontalAlignment" Value="Left"/>
-                            </Style>
                         </Grid.Resources>
-                        <Grid HorizontalAlignment="Stretch" x:Name="Test">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Style="{x:Null}" HorizontalAlignment="Left" Grid.Row="0">
-                                <StackPanel HorizontalAlignment="Left">
-                                    <TextBlock Text="Комната: "/>
-                                    <TextBox Text="{Binding Room.Name}" Width="100"/>
-                                    <Button Background="Transparent" BorderThickness="0" Command="{Binding SearchRoom}">
-                                        <fa:ImageAwesome Icon="Solid_MagnifyingGlass" Height="15" Width="20"/>
-                                    </Button>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Grid HorizontalAlignment="Stretch" x:Name="Test">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Style="{x:Null}" HorizontalAlignment="Left" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="WrapPanel">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <WrapPanel>
+                                        <TextBlock Text="Комната: "/>
+                                        <TextBox Text="{Binding Room.Name}" Width="100"/>
+                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding SearchRoom}">
+                                            <fa:ImageAwesome Icon="Solid_MagnifyingGlass" Height="15" Width="20"/>
+                                        </Button>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="Длина комнаты: " Width="{Binding ActualWidth, ElementName=BiggestTB}"/>
+                                        <TextBox Text="{Binding Room.Proportions.X}"/>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="Ширина комнаты: " Name="BiggestTB"/>
+                                        <TextBox Text="{Binding Room.Proportions.Y}"/>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="Высота комнаты: " Width="{Binding ActualWidth, ElementName=BiggestTB}"/>
+                                        <TextBox Text="{Binding Room.Proportions.Z}"/>
+                                    </WrapPanel>
                                 </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="Длина комнаты: "/>
-                                    <TextBox Text="{Binding Room.Proportions.X}"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="Ширина комнаты: "/>
-                                    <TextBox Text="{Binding Room.Proportions.Y}"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="Высота комнаты: "/>
-                                    <TextBox Text="{Binding Room.Proportions.Z}"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <!--Sizes-->
-                            <DockPanel Grid.Column="0" Grid.Row="1">
-                                <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}" Margin="2,5" Height="25" Padding="5,0" Width="Auto"/>
-                                <StackPanel Style="{x:Null}" Width="Auto" DockPanel.Dock="Left" Margin="5,0">
-                                    <StackPanel>
-                                        <TextBlock Text="X: "/>
-                                        <TextBox Text="{Binding SelectedSource.X}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <TextBlock Text="Y: "/>
-                                        <TextBox Text="{Binding SelectedSource.Y}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <TextBlock Text="Z: "/>
-                                        <TextBox Text="{Binding SelectedSource.Z}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <Button DockPanel.Dock="Right" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
-                                    <fa:ImageAwesome Icon="Solid_Check"/>
-                                </Button>
-                            </DockPanel>
-                            <!--Sources-->
-                            <DockPanel Grid.Column="0" Grid.Row="2">
-                                <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Recievers}" SelectedItem="{Binding SelectedReciever}" Margin="2,5" Height="25" Padding="5,4" Width="Auto"/>
-                                <StackPanel Style="{x:Null}" Width="Auto" DockPanel.Dock="Left" Margin="4,0">
-                                    <StackPanel>
-                                        <TextBlock Text="X: "/>
-                                        <TextBox Text="{Binding SelectedResiever.X}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <TextBlock Text="Y: "/>
-                                        <TextBox Text="{Binding SelectedResiever.Y}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <TextBlock Text="Z: "/>
-                                        <TextBox Text="{Binding SelectedResiever.Z}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <Button DockPanel.Dock="Right" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
-                                    <fa:ImageAwesome Icon="Solid_Check"/>
-                                </Button>
-                            </DockPanel>
-                            <!--Recievers-->
-                        </Grid><!--Left sizes-->
+                                <!--Sizes-->
+                                <WrapPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch">
+                                    <ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}" Height="25"/>
+                                    <WrapPanel Orientation="Horizontal">
+                                        <WrapPanel Style="{x:Null}" Width="Auto" Orientation="Vertical">
+                                            <WrapPanel>
+                                                <TextBlock Text="X: "/>
+                                                <TextBox Text="{Binding SelectedSource.X}"/>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <TextBlock Text="Y: "/>
+                                                <TextBox Text="{Binding SelectedSource.Y}"/>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <TextBlock Text="Z: "/>
+                                                <TextBox Text="{Binding SelectedSource.Z}"/>
+                                            </WrapPanel>
+                                        </WrapPanel>
+                                        <Button Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
+                                            <fa:ImageAwesome Icon="Solid_Check"/>
+                                        </Button>
+                                    </WrapPanel>
+                                </WrapPanel>
+                                <!--Sources-->
+                                <WrapPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <ComboBox ItemsSource="{Binding Recievers}" SelectedItem="{Binding SelectedReciever}" Height="25"/>
+                                    <WrapPanel Orientation="Horizontal">
+                                        <WrapPanel Orientation="Vertical">
+                                            <WrapPanel>
+                                                <TextBlock Text="X: "/>
+                                                <TextBox Text="{Binding SelectedResiever.X}"/>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <TextBlock Text="Y: "/>
+                                                <TextBox Text="{Binding SelectedResiever.Y}"/>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <TextBlock Text="Z: "/>
+                                                <TextBox Text="{Binding SelectedResiever.Z}"/>
+                                            </WrapPanel>
+                                        </WrapPanel>
+                                        <Button DockPanel.Dock="Right" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
+                                            <fa:ImageAwesome Icon="Solid_Check"/>
+                                        </Button>
+                                    </WrapPanel>
+
+                                </WrapPanel>
+                                <!--Recievers-->
+                            </Grid>
+                            <!--Left sizes-->
+                        </ScrollViewer>
                         <GridSplitter Grid.Column="1" Width="2" Background="LightGray" HorizontalAlignment="Stretch"/>
-                        <Grid Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="2">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="3.5*"/>
-                                <RowDefinition Height="1*"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Grid.Resources>
-                                <Style TargetType="StackPanel" x:Key="A">
-                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                    <Setter Property="Orientation" Value="Vertical"/>
-                                </Style>
-                            </Grid.Resources>
-                            <DockPanel LastChildFill="True" DataContext="{Binding WallBackward}" Grid.Column="0" Grid.Row="0">
-                                <TextBlock Text="Задняя" DockPanel.Dock="Top"/>
-                                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                                    <Button DockPanel.Dock="Right" Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
-                                        <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
-                                    </Button>
-                                    <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                </DockPanel>
-                                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
-                            </DockPanel>
-                            <DockPanel LastChildFill="True" DataContext="{Binding WallBackward}" Grid.Column="1" Grid.Row="0">
-                                <TextBlock Text="Задняя" DockPanel.Dock="Top"/>
-                                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                                    <Button DockPanel.Dock="Right" Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
-                                        <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
-                                    </Button>
-                                    <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                </DockPanel>
-                                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
-                            </DockPanel>
-                            <DockPanel LastChildFill="True" DataContext="{Binding WallBackward}" Grid.Column="2" Grid.Row="0">
-                                <TextBlock Text="Задняя" DockPanel.Dock="Top"/>
-                                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                                    <Button DockPanel.Dock="Right" Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
-                                        <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
-                                    </Button>
-                                    <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                </DockPanel>
-                                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
-                            </DockPanel>
-                            <DockPanel LastChildFill="True" DataContext="{Binding WallBackward}" Grid.Column="3" Grid.Row="0">
-                                <TextBlock Text="Задняя" DockPanel.Dock="Top"/>
-                                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                                    <Button DockPanel.Dock="Right" Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
-                                        <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
-                                    </Button>
-                                    <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                </DockPanel>
-                                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
-                            </DockPanel>
-                            <DockPanel LastChildFill="True" DataContext="{Binding WallBackward}" Grid.Column="4" Grid.Row="0">
-                                <TextBlock Text="Задняя" DockPanel.Dock="Top"/>
-                                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                                    <Button DockPanel.Dock="Right" Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
-                                        <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
-                                    </Button>
-                                    <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                </DockPanel>
-                                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
-                            </DockPanel>
-                            <DockPanel LastChildFill="True" DataContext="{Binding WallBackward}" Grid.Column="5" Grid.Row="0">
-                                <TextBlock Text="Задняя" DockPanel.Dock="Top"/>
-                                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                                    <Button DockPanel.Dock="Right" Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
-                                        <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
-                                    </Button>
-                                    <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                </DockPanel>
-                                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
-                            </DockPanel>
-                            
+                            <GridSplitter Grid.Row="1" Height="2" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Panel.ZIndex="1">
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Resources>
+                                        <Style TargetType="StackPanel" x:Key="A">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            <Setter Property="Orientation" Value="Vertical"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <WrapPanel DataContext="{Binding WallBackward}" Grid.Column="0" Orientation="Vertical">
+                                        <TextBlock Text="Задняя"/>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
+                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                            <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
+                                                <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
+                                            </Button>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel DataContext="{Binding WallLeft}" Grid.Column="1" Orientation="Vertical">
+                                        <TextBlock Text="Левая"/>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
+                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                            <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
+                                                <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
+                                            </Button>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel DataContext="{Binding WallForward}" Grid.Column="2" Orientation="Vertical">
+                                        <TextBlock Text="Передняя"/>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
+                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                            <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
+                                                <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
+                                            </Button>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel DataContext="{Binding WallRight}" Grid.Column="3" Orientation="Vertical">
+                                        <TextBlock Text="Правая" DockPanel.Dock="Top"/>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
+                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                            <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
+                                                <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
+                                            </Button>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel DataContext="{Binding WallBackward}" Grid.Column="4" Orientation="Vertical">
+                                        <TextBlock Text="Пол"/>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
+                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                            <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
+                                                <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
+                                            </Button>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel DataContext="{Binding Celling}" Grid.Column="5" Orientation="Vertical">
+                                        <WrapPanel>
+                                            <TextBlock Text="Потолок"/>
+                                        </WrapPanel>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
+                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
+                                            <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
+                                                <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
+                                            </Button>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                </Grid>
+                            </ScrollViewer>
+                            <Button Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Panel.ZIndex="2" ToolTip="Выбор отделочных материалов" Margin="1">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BorderBrush" Value="Gray"/>
+                                        <Setter Property="BorderThickness" Value="0.5"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="Transparent" TargetName="Border" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                                <fa:ImageAwesome Icon="Solid_Exclamation" Height="10" Width="10" PrimaryColor="#FF969393"/>
+                            </Button>
                         </Grid>
                     </Grid>
                 </DataTemplate>
