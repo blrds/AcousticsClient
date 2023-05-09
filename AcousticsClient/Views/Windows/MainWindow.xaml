@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AcousticsClient"
         xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
-        Title="Acoustic client" Height="450" Width="800"
+        Title="Расчет реверберации" Height="480" Width="800"
         xmlns:vm="clr-namespace:AcousticsClient.ViewModels">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -82,6 +82,7 @@
                                 <WrapPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch">
                                     <WrapPanel Orientation="Horizontal">
                                         <WrapPanel Style="{x:Null}" Width="Auto" Orientation="Vertical">
+                                            <TextBlock Text="Источник"/>
                                             <WrapPanel>
                                                 <TextBlock Text="X: "/>
                                                 <TextBox Text="{Binding Source.X}"/>
@@ -101,28 +102,32 @@
                                     </WrapPanel>
                                 </WrapPanel>
                                 <!--Sources-->
-                                <WrapPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <ComboBox ItemsSource="{Binding Recievers}" SelectedItem="{Binding SelectedResiever}" Height="Auto"/>
-                                    <WrapPanel Orientation="Horizontal">
-                                        <WrapPanel Orientation="Vertical">
-                                            <WrapPanel>
-                                                <TextBlock Text="X: "/>
-                                                <TextBox Text="{Binding SelectedResiever.Coordinates.X}"/>
+                                <WrapPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <WrapPanel Orientation="Vertical">
+                                        <TextBlock Text="Приемник"/>
+                                        <ComboBox ItemsSource="{Binding Recievers}" SelectedItem="{Binding SelectedResiever}" Height="Auto"/>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <WrapPanel Orientation="Vertical">
+                                                <WrapPanel>
+                                                    <TextBlock Text="X: "/>
+                                                    <TextBox Text="{Binding SelectedResiever.Coordinates.X}"/>
+                                                </WrapPanel>
+                                                <WrapPanel>
+                                                    <TextBlock Text="Y: "/>
+                                                    <TextBox Text="{Binding SelectedResiever.Coordinates.Y}"/>
+                                                </WrapPanel>
+                                                <WrapPanel>
+                                                    <TextBlock Text="Z: "/>
+                                                    <TextBox Text="{Binding SelectedResiever.Coordinates.Z}" IsReadOnly="True"/>
+                                                </WrapPanel>
                                             </WrapPanel>
-                                            <WrapPanel>
-                                                <TextBlock Text="Y: "/>
-                                                <TextBox Text="{Binding SelectedResiever.Coordinates.Y}"/>
-                                            </WrapPanel>
-                                            <WrapPanel>
-                                                <TextBlock Text="Z: "/>
-                                                <TextBox Text="{Binding SelectedResiever.Coordinates.Z}" IsReadOnly="True"/>
-                                            </WrapPanel>
-                                        </WrapPanel>
-                                        <Button DockPanel.Dock="Right" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
-                                            <fa:ImageAwesome Icon="Solid_Check"/>
-                                        </Button>
-                                    </WrapPanel>
 
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    
+                                    <Button Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
+                                        <fa:ImageAwesome Icon="Solid_Check"/>
+                                    </Button>
                                 </WrapPanel>
                                 <!--Recievers-->
                             </Grid>
@@ -286,7 +291,7 @@
             </TabControl.ContentTemplate>
         </TabControl>
         <DockPanel Grid.Row="2" HorizontalAlignment="Stretch">
-            <Button Content="Расчитать" DockPanel.Dock="Right"/>
+            <Button Content="Рассчитать" DockPanel.Dock="Right"/>
             <ProgressBar  Height="15"/>
         </DockPanel>
     </Grid>

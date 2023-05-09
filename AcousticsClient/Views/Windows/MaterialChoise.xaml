@@ -7,7 +7,7 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:AcousticsClient.ViewModels"
-        Title="MaterialChoise" Height="400" Width="300">
+        Title="Выбор Материала" Height="400" Width="300">
     <Window.DataContext>
         <vm:MaterialChoiseViewModel/>
     </Window.DataContext>
@@ -15,15 +15,22 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DockPanel  LastChildFill="True" Height="20">
-            <Button DockPanel.Dock="Right" Width="20" Height="20">
+        <DockPanel  LastChildFill="True" Height="20" Margin="5">
+            <Button DockPanel.Dock="Right" Width="20" Height="20" Background="Transparent">
                 <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
             </Button>
-            <TextBox/>
+            <TextBox Text="Введите название" Foreground="Gray"/>
         </DockPanel>
-        <ListView ItemsSource="{Binding Surfaces}">
-            
+        <ListView ItemsSource="{Binding Surfaces}" Grid.Row="1" VerticalAlignment="Stretch" Margin="5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Наименование"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Reflection}" Header="Коэффициент отражения"/>
+                </GridView>
+            </ListView.View>
         </ListView>
+        <Button Grid.Row="2" Height="20" Width="Auto" Content="Выбрать" HorizontalAlignment="Right" Margin="5"/>
     </Grid>
 </Window>

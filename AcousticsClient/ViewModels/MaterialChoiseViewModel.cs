@@ -10,7 +10,7 @@ namespace AcousticsClient.ViewModels
 {
     internal class MaterialChoiseViewModel:ViewModel
     {
-        public List<Surface> Surfaces=new List<Surface>();
+        public List<Surface> Surfaces { get; set; } =new List<Surface>();
 
         public MaterialChoiseViewModel()
         {
