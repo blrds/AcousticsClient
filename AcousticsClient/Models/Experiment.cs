@@ -22,8 +22,7 @@ namespace AcousticsClient.Models
         /// <summary>
         /// Coordinates of Sources
         /// </summary>
-        public List<Vector3> Sources { get; set; } = new List<Vector3>();
-
+        public Vector3 Source { get; set; } = new Vector3();
         public List<Reciever> Recievers { get; set; } = new List<Reciever>();
         public Surface WallLeft { get; set; } = new Surface();
         public Surface WallRight { get; set; } = new Surface();
@@ -52,14 +51,9 @@ namespace AcousticsClient.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private Vector3 _SelectedSource;
-        public Vector3 SelectedSource
-        {
-            get { return _SelectedSource; }
-            set { _SelectedSource = value; OnPropertyChanged("SelectedSource"); }
-        }
-        private Vector3 _SelectedResiever;
-        public Vector3 SelectedResiever
+
+        private Reciever _SelectedResiever;
+        public Reciever SelectedResiever
         {
             get { return _SelectedResiever; }
             set { _SelectedResiever = value; OnPropertyChanged("SelectedResiever"); }

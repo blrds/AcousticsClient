@@ -1,0 +1,18 @@
+﻿<Window x:Class="AcousticsClient.Views.Windows.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AcousticsClient.Views.Windows"
+        mc:Ignorable="d"
+        Title="Войти" Height="350" Width="250" ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+        <TextBlock Text="Авторизация" Margin="5,15" TextAlignment="Center" FontSize="20" FontWeight="Bold"/>
+        <TextBlock Text="Для продолжения необходимо авторизоваться" Margin="5" TextWrapping="WrapWithOverflow" TextAlignment="Center" FontSize="10" Foreground="Gray"/>
+        <TextBlock Height="100"/>
+        <TextBox Margin="5" Text="Логин"/>
+        <TextBox Margin="5" Text="Пароль"/>
+        <TextBlock Height="25"/>
+        <Button Content="Войти" Width="100" HorizontalAlignment="Right" Margin="5"/>
+    </StackPanel>
+</Window>

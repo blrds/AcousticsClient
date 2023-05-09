@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AcousticsClient"
         xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
-        Title="{Binding ActualWidth, ElementName=Test}" Height="450" Width="800"
+        Title="Acoustic client" Height="450" Width="800"
         xmlns:vm="clr-namespace:AcousticsClient.ViewModels">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -80,20 +80,19 @@
                                 </StackPanel>
                                 <!--Sizes-->
                                 <WrapPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch">
-                                    <ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}" Height="25"/>
                                     <WrapPanel Orientation="Horizontal">
                                         <WrapPanel Style="{x:Null}" Width="Auto" Orientation="Vertical">
                                             <WrapPanel>
                                                 <TextBlock Text="X: "/>
-                                                <TextBox Text="{Binding SelectedSource.X}"/>
+                                                <TextBox Text="{Binding Source.X}"/>
                                             </WrapPanel>
                                             <WrapPanel>
                                                 <TextBlock Text="Y: "/>
-                                                <TextBox Text="{Binding SelectedSource.Y}"/>
+                                                <TextBox Text="{Binding Source.Y}"/>
                                             </WrapPanel>
                                             <WrapPanel>
                                                 <TextBlock Text="Z: "/>
-                                                <TextBox Text="{Binding SelectedSource.Z}"/>
+                                                <TextBox Text="{Binding Source.Z}" IsReadOnly="True"/>
                                             </WrapPanel>
                                         </WrapPanel>
                                         <Button Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
@@ -103,20 +102,20 @@
                                 </WrapPanel>
                                 <!--Sources-->
                                 <WrapPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <ComboBox ItemsSource="{Binding Recievers}" SelectedItem="{Binding SelectedReciever}" Height="25"/>
+                                    <ComboBox ItemsSource="{Binding Recievers}" SelectedItem="{Binding SelectedResiever}" Height="Auto"/>
                                     <WrapPanel Orientation="Horizontal">
                                         <WrapPanel Orientation="Vertical">
                                             <WrapPanel>
                                                 <TextBlock Text="X: "/>
-                                                <TextBox Text="{Binding SelectedResiever.X}"/>
+                                                <TextBox Text="{Binding SelectedResiever.Coordinates.X}"/>
                                             </WrapPanel>
                                             <WrapPanel>
                                                 <TextBlock Text="Y: "/>
-                                                <TextBox Text="{Binding SelectedResiever.Y}"/>
+                                                <TextBox Text="{Binding SelectedResiever.Coordinates.Y}"/>
                                             </WrapPanel>
                                             <WrapPanel>
                                                 <TextBlock Text="Z: "/>
-                                                <TextBox Text="{Binding SelectedResiever.Z}"/>
+                                                <TextBox Text="{Binding SelectedResiever.Coordinates.Z}" IsReadOnly="True"/>
                                             </WrapPanel>
                                         </WrapPanel>
                                         <Button DockPanel.Dock="Right" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,5" Background="Transparent" BorderBrush="Transparent">
@@ -142,24 +141,31 @@
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="2*"/>
                                     </Grid.RowDefinitions>
-                                    <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Реверберация на 125 Гц" HorizontalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Rev60_125}" HorizontalAlignment="Center"/>
-                                        </StackPanel> 
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Реверберация на 500 Гц" HorizontalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Rev60_500}" HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Реверберация на 2000 Гц" HorizontalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Rev60_2000}" HorizontalAlignment="Center"/>
-                                        </StackPanel>
+                                    <WrapPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center">
+                                        <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Реверберация на 125 Гц" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Rev60_125}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Реверберация на 500 Гц" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Rev60_500}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Реверберация на 2000 Гц" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Rev60_2000}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </WrapPanel>
                                     </WrapPanel>
                                     <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                        <DataGrid ItemsSource="{Binding Recievers}" AutoGenerateColumns="False">
+                                        <DataGrid ItemsSource="{Binding Recievers}" AutoGenerateColumns="False" IsReadOnly="True" EnableColumnVirtualization="False" CanUserAddRows="False" VerticalAlignment="Center" HorizontalAlignment="Center">
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header=""/>
+                                                <DataGridTextColumn Header="" Binding="{Binding Name}"/>
+                                                <DataGridTextColumn Header="Потолок" Binding="{Binding CellLagTime}"/>
+                                                <DataGridTextColumn Header="Левая стена" Binding="{Binding LWallLagTime}"/>
+                                                <DataGridTextColumn Header="Правая стена" Binding="{Binding RWallLagTime}"/>
                                             </DataGrid.Columns>
                                             
                                             
@@ -185,9 +191,9 @@
                                     </Grid.ColumnDefinitions>
                                     <WrapPanel DataContext="{Binding WallBackward}" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
                                         <TextBlock Text="Задняя"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                         <WrapPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                             <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
                                                 <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
                                             </Button>
@@ -195,9 +201,9 @@
                                     </WrapPanel>
                                     <WrapPanel DataContext="{Binding WallLeft}" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center">
                                         <TextBlock Text="Левая"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                         <WrapPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                             <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
                                                 <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
                                             </Button>
@@ -205,9 +211,9 @@
                                     </WrapPanel>
                                     <WrapPanel DataContext="{Binding WallForward}" Grid.Column="4" Orientation="Vertical" HorizontalAlignment="Center">
                                         <TextBlock Text="Передняя"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                         <WrapPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                             <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
                                                 <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
                                             </Button>
@@ -215,31 +221,29 @@
                                     </WrapPanel>
                                     <WrapPanel DataContext="{Binding WallRight}" Grid.Column="6" Orientation="Vertical" HorizontalAlignment="Center">
                                         <TextBlock Text="Правая" DockPanel.Dock="Top"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                         <WrapPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                             <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
                                                 <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
                                             </Button>
                                         </WrapPanel>
                                     </WrapPanel>
-                                    <WrapPanel DataContext="{Binding WallBackward}" Grid.Column="8" Orientation="Vertical" HorizontalAlignment="Center">
+                                    <WrapPanel DataContext="{Binding Floor}" Grid.Column="8" Orientation="Vertical" HorizontalAlignment="Center">
                                         <TextBlock Text="Пол"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                         <WrapPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                             <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
                                                 <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
                                             </Button>
                                         </WrapPanel>
                                     </WrapPanel>
                                     <WrapPanel DataContext="{Binding Celling}" Grid.Column="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                        <WrapPanel>
-                                            <TextBlock Text="Потолок"/>
-                                        </WrapPanel>
+                                        <TextBlock Text="Потолок"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                         <WrapPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Reflection}" HorizontalAlignment="Stretch"/>
-                                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow"/>
                                             <Button Width="20" Height="20" ToolTip="Выбор материала" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="10,0">
                                                 <fa:ImageAwesome Icon="Solid_MagnifyingGlass"/>
                                             </Button>

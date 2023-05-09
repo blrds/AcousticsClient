@@ -13,7 +13,11 @@ namespace AcousticsClient.Models
         {
             Name = name;
         }
-
+        public Room(string name, Vector3 proportions)
+        {
+            Name = name;
+            Proportions = proportions;
+        }
         public string Name { get; set; } = "Room";
 
         /// <summary>
