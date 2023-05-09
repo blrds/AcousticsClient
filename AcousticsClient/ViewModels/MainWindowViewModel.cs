@@ -17,6 +17,7 @@ namespace AcousticsClient.ViewModels
 {
     internal class MainWindowViewModel:ViewModel
     {
+        public static List<string> RecievrsNames { get; private set; } = new List<string>(3) { "от потолка", "от левой стены", "от правой стены" };
         public TrulyObservableCollection<Experiment> Experiments { get; set; } = new TrulyObservableCollection<Experiment>();
         public Experiment SelectedExperiment { get; set; }
         public int SelectedIndex { get; set; }
